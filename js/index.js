@@ -1,11 +1,11 @@
 $(document).ready(function() {
   function getQuote() {
     $.ajax({
-      url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1",
+      url: "https://quotesondesign.com/wp-json/wp/v2/posts?orderby=rand&filter",
       type: "GET",
       dataType: "json",
       success: function(data) {
-        var { content: quote, title: author } = data[0];
+        var { content: { rendered: quote }, title: { rendered: author } } = data[0];
         quote = quote.replace(/<\/*p>/gi, '');
         quoteHistory.push({ quote, author });
         currQuoteIndex = quoteHistory.length - 1;
